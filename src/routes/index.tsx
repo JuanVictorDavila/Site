@@ -1,8 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
-import heroImage from "../assets/hero-forensic.jpg";
+import heroImageAvif from "../assets/hero-forensic.avif";
+import heroImageWebp from "../assets/hero-forensic.webp";
 import { PericialNav } from "../components/pericial-nav";
+import { SiteFooter } from "../components/site-footer";
+import { trackEvent } from "../lib/analytics";
+import { breadcrumbSchema, organizationSchema, pageHead, serviceSchema } from "../lib/seo";
 
 const WHATSAPP_NUMBER = "5592981680207";
 const SHOW_LEGACY_SOFTWARE_SECTION = false;
@@ -87,6 +91,8 @@ function ContactForm() {
     setForm(data);
     setTouched({ name: true, email: true, phone: true, service: true, message: true });
     if (!validate(data)) return;
+
+    trackEvent("contact_form_submit", { service: data.service });
 
     const text = `Olá, sou ${data.name}.\nGostaria de solicitar uma análise da Vértice Perícia.\n\n*Nome:* ${data.name}\n*E-mail:* ${data.email}\n*Telefone:* ${data.phone}\n*Serviço:* ${serviceLabels[data.service] || data.service}\n*Mensagem:* ${data.message}`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, "_blank");
@@ -326,6 +332,12 @@ function SoftwareForm() {
     });
     if (!validate(form)) return;
 
+    trackEvent("software_request", {
+      solution: form.solution,
+      deadline: form.deadline,
+      budget: form.budget,
+    });
+
     const text = `Olá, sou ${form.name}.\nGostaria de desenvolver uma solução de software com a Vértice Perícia.\n\n*Nome:* ${form.name}\n*E-mail:* ${form.email}\n*Telefone:* ${form.phone}\n*Solução:* ${solutionLabels[form.solution] || form.solution}\n*Prazo:* ${deadlineLabels[form.deadline] || form.deadline}\n*Investimento:* ${budgetLabels[form.budget] || form.budget}\n*Descrição:* ${form.message}`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, "_blank");
   };
@@ -515,32 +527,23 @@ function WhatsAppFloatButton() {
 }
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      {
-        title: "Vértice Perícia | Perícias Contábil, Grafotécnica, Documental e Digital",
-      },
-      {
-        name: "description",
-        content:
-          "Perícias contábil, grafotécnica, documental e digital e auditoria especial. Atuação judicial e extrajudicial.",
-      },
-      {
-        property: "og:title",
-        content:
-          "Vértice Perícia | Perícia Contábil, Grafotécnica, Documental, Digital e Auditoria",
-      },
-      {
-        property: "og:description",
-        content:
-          "Perícias contábil, grafotécnica, documental e digital e auditoria. Atuação judicial e extrajudicial.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { property: "og:image", content: heroImage },
-      { name: "twitter:image", content: heroImage },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Perícia Contábil, Digital e Documental | Vértice",
+      description:
+        "Perícias contábil, grafotécnica, documental e digital, além de auditoria especial para demandas judiciais e extrajudiciais.",
+      path: "/",
+      schemas: [
+        organizationSchema(),
+        serviceSchema({
+          name: "Serviços de perícia e auditoria",
+          description:
+            "Perícias contábil, grafotécnica, documental e digital e auditoria especial.",
+          path: "/",
+        }),
+        breadcrumbSchema([{ name: "Início", path: "/" }]),
+      ],
+    }),
   component: Index,
 });
 
@@ -584,14 +587,20 @@ function Index() {
 
           <div className="relative animate-entry [animation-delay:200ms]">
             <div className="relative w-full min-h-[400px] lg:min-h-full overflow-hidden">
-              <img
-                src={heroImage}
-                alt="Estação de trabalho forense digital com múltiplos monitores e documentos técnicos organizados"
-                width={1024}
-                height={1280}
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                loading="eager"
-              />
+              <picture className="block w-full h-full">
+                <source srcSet={heroImageAvif} type="image/avif" />
+                <source srcSet={heroImageWebp} type="image/webp" />
+                <img
+                  src={heroImageWebp}
+                  alt="Estação de trabalho forense digital com múltiplos monitores e documentos técnicos organizados"
+                  width={696}
+                  height={864}
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
               <div className="absolute inset-0 bg-accent/5 pointer-events-none" />
               <div className="absolute top-0 left-0 w-full h-[2px] bg-accent/30 animate-scanline opacity-50" />
             </div>
@@ -1213,37 +1222,7 @@ function Index() {
         </div>
       </section>
 
-      <footer className="py-12 px-6 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-          <div className="flex flex-col gap-2">
-            <span className="font-mono text-[10px] text-foreground uppercase tracking-[0.3em] font-bold">
-              Vértice Perícia
-            </span>
-            <span className="text-[10px] text-muted-foreground leading-relaxed max-w-md">
-              Vértice Perícia, Consultoria, Auditoria e Tecnologia LTDA
-              <br />
-              CNPJ 67.807.914/0001-30
-            </span>
-          </div>
-          <div className="flex gap-8 font-mono text-[10px] text-muted-foreground uppercase">
-            <Link to="/desenvolvimento" className="hover:text-foreground transition-colors">
-              Desenvolvimento
-            </Link>
-            <Link to="/blog" className="hover:text-foreground transition-colors">
-              Blog
-            </Link>
-            <a href="#" className="hover:text-foreground transition-colors">
-              Termos
-            </a>
-            <a href="#" className="hover:text-foreground transition-colors">
-              Privacidade
-            </a>
-            <a href="#" className="hover:text-foreground transition-colors">
-              ISO 27001
-            </a>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
 
       <WhatsAppFloatButton />
     </div>

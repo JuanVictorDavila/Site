@@ -17,7 +17,10 @@ import { Route as PericiaContabilRouteImport } from './routes/pericia-contabil'
 import { Route as PericiaDigitalRouteImport } from './routes/pericia-digital'
 import { Route as PericiaDocumentalRouteImport } from './routes/pericia-documental'
 import { Route as PericiaGrafotecnicaRouteImport } from './routes/pericia-grafotecnica'
+import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as TermosDeUsoRouteImport } from './routes/termos-de-uso'
 import { Route as BlogIndexRouteImport } from './routes/blog.index'
 import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
@@ -61,9 +64,24 @@ const PericiaGrafotecnicaRoute = PericiaGrafotecnicaRouteImport.update({
   path: '/pericia-grafotecnica',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
+  id: '/politica-de-privacidade',
+  path: '/politica-de-privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SobreRoute = SobreRouteImport.update({
+  id: '/sobre',
+  path: '/sobre',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermosDeUsoRoute = TermosDeUsoRouteImport.update({
+  id: '/termos-de-uso',
+  path: '/termos-de-uso',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogIndexRoute = BlogIndexRouteImport.update({
@@ -86,7 +104,10 @@ export interface FileRoutesByFullPath {
   '/pericia-digital': typeof PericiaDigitalRoute
   '/pericia-documental': typeof PericiaDocumentalRoute
   '/pericia-grafotecnica': typeof PericiaGrafotecnicaRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
+  '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -98,7 +119,10 @@ export interface FileRoutesByTo {
   '/pericia-digital': typeof PericiaDigitalRoute
   '/pericia-documental': typeof PericiaDocumentalRoute
   '/pericia-grafotecnica': typeof PericiaGrafotecnicaRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
+  '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog': typeof BlogIndexRoute
 }
@@ -112,7 +136,10 @@ export interface FileRoutesById {
   '/pericia-digital': typeof PericiaDigitalRoute
   '/pericia-documental': typeof PericiaDocumentalRoute
   '/pericia-grafotecnica': typeof PericiaGrafotecnicaRoute
+  '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sobre': typeof SobreRoute
+  '/termos-de-uso': typeof TermosDeUsoRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -127,7 +154,10 @@ export interface FileRouteTypes {
     | '/pericia-digital'
     | '/pericia-documental'
     | '/pericia-grafotecnica'
+    | '/politica-de-privacidade'
     | '/sitemap.xml'
+    | '/sobre'
+    | '/termos-de-uso'
     | '/blog/$slug'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
@@ -139,7 +169,10 @@ export interface FileRouteTypes {
     | '/pericia-digital'
     | '/pericia-documental'
     | '/pericia-grafotecnica'
+    | '/politica-de-privacidade'
     | '/sitemap.xml'
+    | '/sobre'
+    | '/termos-de-uso'
     | '/blog/$slug'
     | '/blog'
   id:
@@ -152,7 +185,10 @@ export interface FileRouteTypes {
     | '/pericia-digital'
     | '/pericia-documental'
     | '/pericia-grafotecnica'
+    | '/politica-de-privacidade'
     | '/sitemap.xml'
+    | '/sobre'
+    | '/termos-de-uso'
     | '/blog/$slug'
     | '/blog/'
   fileRoutesById: FileRoutesById
@@ -166,7 +202,10 @@ export interface RootRouteChildren {
   PericiaDigitalRoute: typeof PericiaDigitalRoute
   PericiaDocumentalRoute: typeof PericiaDocumentalRoute
   PericiaGrafotecnicaRoute: typeof PericiaGrafotecnicaRoute
+  PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SobreRoute: typeof SobreRoute
+  TermosDeUsoRoute: typeof TermosDeUsoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -227,11 +266,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PericiaGrafotecnicaRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/politica-de-privacidade': {
+      id: '/politica-de-privacidade'
+      path: '/politica-de-privacidade'
+      fullPath: '/politica-de-privacidade'
+      preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sobre': {
+      id: '/sobre'
+      path: '/sobre'
+      fullPath: '/sobre'
+      preLoaderRoute: typeof SobreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/termos-de-uso': {
+      id: '/termos-de-uso'
+      path: '/termos-de-uso'
+      fullPath: '/termos-de-uso'
+      preLoaderRoute: typeof TermosDeUsoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/blog/': {
@@ -272,7 +332,10 @@ const rootRouteChildren: RootRouteChildren = {
   PericiaDigitalRoute: PericiaDigitalRoute,
   PericiaDocumentalRoute: PericiaDocumentalRoute,
   PericiaGrafotecnicaRoute: PericiaGrafotecnicaRoute,
+  PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SobreRoute: SobreRoute,
+  TermosDeUsoRoute: TermosDeUsoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

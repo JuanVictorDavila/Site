@@ -1,26 +1,29 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { SoftwareForm } from "../components/software-form";
+import { SiteFooter } from "../components/site-footer";
+import { breadcrumbSchema, pageHead, serviceSchema } from "../lib/seo";
 
 export const Route = createFileRoute("/desenvolvimento")({
-  head: () => ({
-    meta: [
-      { title: "Vértice Desenvolvimento | Fábrica de Software sob Medida" },
-      {
-        name: "description",
-        content:
-          "Sistemas web, automações, integrações, portais e micro-SaaS desenvolvidos sob medida para a operação da sua empresa.",
-      },
-      {
-        property: "og:title",
-        content: "Vértice Desenvolvimento | Software sob Medida",
-      },
-      {
-        property: "og:description",
-        content: "Da descoberta à sustentação: soluções digitais feitas para processos reais.",
-      },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      title: "Desenvolvimento de Software sob Medida | Vértice",
+      description:
+        "Desenvolvimento de sistemas web, automações, integrações, portais e micro-SaaS sob medida para processos reais da sua empresa.",
+      path: "/desenvolvimento",
+      schemas: [
+        serviceSchema({
+          name: "Desenvolvimento de software sob medida",
+          description:
+            "Sistemas web, automações, integrações, portais e micro-SaaS desenvolvidos sob medida.",
+          path: "/desenvolvimento",
+        }),
+        breadcrumbSchema([
+          { name: "Início", path: "/" },
+          { name: "Desenvolvimento de software", path: "/desenvolvimento" },
+        ]),
+      ],
+    }),
   component: DevelopmentPage,
 });
 
@@ -276,26 +279,7 @@ function DevelopmentPage() {
         </section>
       </main>
 
-      <footer className="py-10 px-6 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-6 justify-between md:items-center">
-          <div>
-            <span className="font-mono text-[10px] uppercase tracking-[0.3em] font-bold block mb-2">
-              Vértice Desenvolvimento
-            </span>
-            <span className="text-[10px] text-muted-foreground">
-              Vértice Perícia, Consultoria, Auditoria e Tecnologia LTDA · CNPJ 67.807.914/0001-30
-            </span>
-          </div>
-          <div className="flex gap-6 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
-            <Link to="/blog" className="hover:text-accent transition-colors">
-              Blog
-            </Link>
-            <Link to="/" className="hover:text-accent transition-colors">
-              Ir para Perícia e Auditoria
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

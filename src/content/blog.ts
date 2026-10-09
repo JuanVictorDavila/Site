@@ -25,6 +25,7 @@ export interface BlogPost {
     label: string;
     path: ServicePath;
   };
+  additionalServicePaths?: ServicePath[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -116,6 +117,7 @@ export const blogPosts: BlogPost[] = [
       label: "Conheça a atuação em Perícia Documental",
       path: "/pericia-documental",
     },
+    additionalServicePaths: ["/pericia-grafotecnica"],
   },
   {
     slug: "como-preservar-evidencias-digitais",

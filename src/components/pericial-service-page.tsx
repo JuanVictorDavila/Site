@@ -1,10 +1,13 @@
 import { Link } from "@tanstack/react-router";
 
+import { blogPosts, type ServicePath } from "../content/blog";
 import { PericialNav } from "./pericial-nav";
+import { SiteFooter } from "./site-footer";
 
 const WHATSAPP_NUMBER = "5592981680207";
 
 export type PericialService = {
+  path: ServicePath;
   code: string;
   title: string;
   shortTitle: string;
@@ -19,6 +22,7 @@ export type PericialService = {
 // eslint-disable-next-line react-refresh/only-export-components
 export const pericialServices = {
   contabil: {
+    path: "/pericia-contabil",
     code: "CASE_TYPE: ACCOUNTING",
     title: "Perícia Contábil",
     shortTitle: "Contábil",
@@ -43,6 +47,7 @@ export const pericialServices = {
     whatsappMessage: "Olá, gostaria de solicitar uma análise para Perícia Contábil.",
   },
   auditoria: {
+    path: "/auditoria",
     code: "CASE_TYPE: AUDIT",
     title: "Auditoria Especial",
     shortTitle: "Auditoria",
@@ -67,6 +72,7 @@ export const pericialServices = {
     whatsappMessage: "Olá, gostaria de solicitar uma análise para Auditoria Especial.",
   },
   grafotecnica: {
+    path: "/pericia-grafotecnica",
     code: "CASE_TYPE: HANDWRITING",
     title: "Perícia Grafotécnica",
     shortTitle: "Grafotécnica",
@@ -91,6 +97,7 @@ export const pericialServices = {
     whatsappMessage: "Olá, gostaria de solicitar uma análise para Perícia Grafotécnica.",
   },
   documental: {
+    path: "/pericia-documental",
     code: "CASE_TYPE: DOCUMENTS",
     title: "Perícia Documental",
     shortTitle: "Documental",
@@ -115,6 +122,7 @@ export const pericialServices = {
     whatsappMessage: "Olá, gostaria de solicitar uma análise para Perícia Documental.",
   },
   digital: {
+    path: "/pericia-digital",
     code: "CASE_TYPE: FORENSIC_DIGITAL",
     title: "Perícia Digital",
     shortTitle: "Digital",
@@ -142,6 +150,11 @@ export const pericialServices = {
 
 export function PericialServicePage({ service }: { service: PericialService }) {
   const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(service.whatsappMessage)}`;
+  const relatedPosts = blogPosts.filter(
+    (post) =>
+      post.relatedService.path === service.path ||
+      post.additionalServicePaths?.includes(service.path),
+  );
 
   return (
     <div className="min-h-screen bg-background text-foreground font-sans selection:bg-accent/10 selection:text-accent">
@@ -173,6 +186,7 @@ export function PericialServicePage({ service }: { service: PericialService }) {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                data-analytics-source={`${service.path}:header`}
                 className="inline-flex justify-center w-full px-6 py-3 bg-[#25D366] text-white text-xs font-mono uppercase tracking-widest hover:brightness-110 transition-all"
               >
                 Solicitar análise
@@ -229,10 +243,54 @@ export function PericialServicePage({ service }: { service: PericialService }) {
           </div>
         </section>
 
+        {relatedPosts.length ? (
+          <section className="px-6 py-24 border-b border-border">
+            <div className="max-w-7xl mx-auto">
+              <span className="font-mono text-[10px] text-accent uppercase tracking-widest block mb-4">
+                03 — Conteúdo relacionado
+              </span>
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tighter">
+                  Entenda melhor este tipo de exame
+                </h2>
+                <Link
+                  to="/blog"
+                  className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors"
+                >
+                  Ver todos os artigos →
+                </Link>
+              </div>
+              <div className="grid md:grid-cols-2 gap-px bg-border border border-border">
+                {relatedPosts.map((post) => (
+                  <Link
+                    key={post.slug}
+                    to="/blog/$slug"
+                    params={{ slug: post.slug }}
+                    className="group bg-background p-7 md:p-8"
+                  >
+                    <span className="font-mono text-[10px] uppercase tracking-widest text-accent block mb-4">
+                      {post.category}
+                    </span>
+                    <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-4 group-hover:text-accent transition-colors">
+                      {post.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                      {post.description}
+                    </p>
+                    <span className="font-mono text-[10px] uppercase tracking-widest">
+                      Ler artigo →
+                    </span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
         <section className="px-6 py-24">
           <div className="max-w-4xl mx-auto text-center">
             <span className="font-mono text-[10px] text-accent uppercase tracking-widest block mb-4">
-              03 — Solicitação
+              {relatedPosts.length ? "04" : "03"} — Solicitação
             </span>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-6">
               Precisa de {service.title.toLowerCase()}?
@@ -245,6 +303,7 @@ export function PericialServicePage({ service }: { service: PericialService }) {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              data-analytics-source={`${service.path}:cta`}
               className="inline-flex justify-center px-8 py-4 bg-[#25D366] text-white font-bold hover:brightness-110 transition-all"
             >
               Falar sobre {service.shortTitle}
@@ -253,19 +312,7 @@ export function PericialServicePage({ service }: { service: PericialService }) {
         </section>
       </main>
 
-      <footer className="py-10 px-6 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between gap-5 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
-          <span>Vértice Perícia</span>
-          <div className="flex gap-6">
-            <Link to="/blog" className="hover:text-accent transition-colors">
-              Blog
-            </Link>
-            <Link to="/" className="hover:text-accent transition-colors">
-              Ver todas as especialidades
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

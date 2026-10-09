@@ -1,9 +1,15 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 
 import { PericialNav } from "../components/pericial-nav";
+import { SiteFooter } from "../components/site-footer";
 import { blogPosts, getBlogPost } from "../content/blog";
-
-const BASE_URL = "https://www.verticepericia.net.br";
+import {
+  ORGANIZATION_ID,
+  SITE_URL,
+  SOCIAL_IMAGE_URL,
+  breadcrumbSchema,
+  pageHead,
+} from "../lib/seo";
 
 export const Route = createFileRoute("/blog/$slug")({
   loader: ({ params }) => {
@@ -13,43 +19,52 @@ export const Route = createFileRoute("/blog/$slug")({
       throw notFound();
     }
 
-    return post;
+    return post!;
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      { title: `${loaderData.title} | Vértice Perícia` },
-      { name: "description", content: loaderData.description },
-      { property: "og:title", content: loaderData.title },
-      { property: "og:description", content: loaderData.description },
-      { property: "og:type", content: "article" },
-      { property: "og:url", content: `${BASE_URL}/blog/${loaderData.slug}` },
-      { property: "article:published_time", content: loaderData.publishedAt },
-      { property: "article:modified_time", content: loaderData.updatedAt },
-      { property: "article:section", content: loaderData.category },
-      { name: "robots", content: "index, follow" },
-      {
-        "script:ld+json": {
+  head: ({ loaderData }) => {
+    if (!loaderData) return {};
+
+    const path = `/blog/${loaderData.slug}`;
+    const head = pageHead({
+      title: `${loaderData.title} | Vértice Perícia`,
+      description: loaderData.description,
+      path,
+      type: "article",
+      schemas: [
+        {
           "@context": "https://schema.org",
           "@type": "BlogPosting",
           headline: loaderData.title,
           description: loaderData.description,
+          image: SOCIAL_IMAGE_URL,
           datePublished: loaderData.publishedAt,
           dateModified: loaderData.updatedAt,
-          mainEntityOfPage: `${BASE_URL}/blog/${loaderData.slug}`,
+          mainEntityOfPage: `${SITE_URL}${path}`,
           author: {
             "@type": "Organization",
             name: "Equipe Técnica Vértice",
+            url: `${SITE_URL}/sobre`,
           },
-          publisher: {
-            "@type": "Organization",
-            name: "Vértice Perícia",
-            url: BASE_URL,
-          },
+          publisher: { "@id": ORGANIZATION_ID },
         },
-      },
-    ],
-    links: [{ rel: "canonical", href: `${BASE_URL}/blog/${loaderData.slug}` }],
-  }),
+        breadcrumbSchema([
+          { name: "Início", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: loaderData.title, path },
+        ]),
+      ],
+    });
+
+    return {
+      ...head,
+      meta: [
+        ...head.meta,
+        { property: "article:published_time", content: loaderData.publishedAt },
+        { property: "article:modified_time", content: loaderData.updatedAt },
+        { property: "article:section", content: loaderData.category },
+      ],
+    };
+  },
   component: BlogPostPage,
 });
 
@@ -199,14 +214,7 @@ function BlogPostPage() {
         </section>
       </main>
 
-      <footer className="py-10 px-6 border-t border-border">
-        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between gap-5 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
-          <span>Vértice Perícia</span>
-          <Link to="/blog" className="hover:text-accent transition-colors">
-            Ver todos os artigos
-          </Link>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

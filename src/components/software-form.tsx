@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { z } from "zod";
 
+import { trackEvent } from "../lib/analytics";
+
 const WHATSAPP_NUMBER = "5592981680207";
 
 const softwareSchema = z.object({
@@ -87,6 +89,12 @@ export function SoftwareForm() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!validate(form)) return;
+
+    trackEvent("software_request", {
+      solution: form.solution,
+      deadline: form.deadline,
+      budget: form.budget,
+    });
 
     const text = `Olá, sou ${form.name}.\nGostaria de desenvolver uma solução de software com a Vértice.\n\n*Nome:* ${form.name}\n*E-mail:* ${form.email}\n*Telefone:* ${form.phone}\n*Solução:* ${solutionLabels[form.solution] || form.solution}\n*Prazo:* ${deadlineLabels[form.deadline] || form.deadline}\n*Investimento:* ${budgetLabels[form.budget] || form.budget}\n*Descrição:* ${form.message}`;
     window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`, "_blank");

@@ -1,45 +1,33 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { PericialNav } from "../components/pericial-nav";
+import { SiteFooter } from "../components/site-footer";
 import { blogPosts } from "../content/blog";
-
-const BASE_URL = "https://www.verticepericia.net.br";
+import { ORGANIZATION_ID, SITE_URL, breadcrumbSchema, pageHead } from "../lib/seo";
 
 export const Route = createFileRoute("/blog/")({
-  head: () => ({
-    meta: [
-      { title: "Blog | Vértice Perícia, Auditoria e Tecnologia" },
-      {
-        name: "description",
-        content:
-          "Artigos sobre perícia contábil, auditoria, documentoscopia, grafotécnica, evidências digitais e tecnologia.",
-      },
-      { property: "og:title", content: "Blog | Vértice Perícia" },
-      {
-        property: "og:description",
-        content: "Conteúdo técnico para compreender exames periciais, auditorias e tecnologia.",
-      },
-      { property: "og:url", content: `${BASE_URL}/blog` },
-      { property: "og:type", content: "website" },
-      { name: "robots", content: "index, follow" },
-      {
-        "script:ld+json": {
+  head: () =>
+    pageHead({
+      title: "Blog sobre Perícia, Auditoria e Tecnologia | Vértice",
+      description:
+        "Artigos técnicos sobre perícia contábil, auditoria, documentoscopia, grafotécnica, evidências digitais e tecnologia.",
+      path: "/blog",
+      schemas: [
+        {
           "@context": "https://schema.org",
           "@type": "Blog",
           name: "Blog Vértice Perícia",
           description:
             "Conteúdo técnico sobre perícia, auditoria, evidências digitais e tecnologia.",
-          url: `${BASE_URL}/blog`,
-          publisher: {
-            "@type": "Organization",
-            name: "Vértice Perícia",
-            url: BASE_URL,
-          },
+          url: `${SITE_URL}/blog`,
+          publisher: { "@id": ORGANIZATION_ID },
         },
-      },
-    ],
-    links: [{ rel: "canonical", href: `${BASE_URL}/blog` }],
-  }),
+        breadcrumbSchema([
+          { name: "Início", path: "/" },
+          { name: "Blog", path: "/blog" },
+        ]),
+      ],
+    }),
   component: BlogPage,
 });
 
@@ -175,19 +163,7 @@ function BlogPage() {
         </section>
       </main>
 
-      <footer className="py-10 px-6 border-t border-border">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between gap-5 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
-          <span>Vértice Perícia · Conteúdo técnico</span>
-          <div className="flex gap-6">
-            <Link to="/" className="hover:text-accent transition-colors">
-              Perícia e Auditoria
-            </Link>
-            <Link to="/desenvolvimento" className="hover:text-accent transition-colors">
-              Desenvolvimento
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

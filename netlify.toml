@@ -1,2 +1,8 @@
 [build]
   command = "npm run build"
+
+[[redirects]]
+  from = "https://verticepericias.netlify.app/*"
+  to = "https://verticepericia.net.br/:splat"
+  status = 301
+  force = true

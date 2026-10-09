@@ -2,8 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
 import { blogPosts } from "../content/blog";
-
-const BASE_URL = "https://www.verticepericia.net.br";
+import { SITE_URL } from "../lib/seo";
 
 interface SitemapEntry {
   path: string;
@@ -25,6 +24,19 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/pericia-documental", changefreq: "monthly", priority: "0.8" },
           { path: "/pericia-digital", changefreq: "monthly", priority: "0.8" },
           { path: "/blog", changefreq: "weekly", priority: "0.8" },
+          { path: "/sobre", lastmod: "2026-10-09", changefreq: "yearly", priority: "0.6" },
+          {
+            path: "/politica-de-privacidade",
+            lastmod: "2026-10-09",
+            changefreq: "yearly",
+            priority: "0.3",
+          },
+          {
+            path: "/termos-de-uso",
+            lastmod: "2026-10-09",
+            changefreq: "yearly",
+            priority: "0.3",
+          },
           ...blogPosts.map((post) => ({
             path: `/blog/${post.slug}`,
             lastmod: post.updatedAt,
@@ -36,7 +48,7 @@ export const Route = createFileRoute("/sitemap.xml")({
         const urls = entries.map((e) =>
           [
             `  <url>`,
-            `    <loc>${BASE_URL}${e.path}</loc>`,
+            `    <loc>${SITE_URL}${e.path}</loc>`,
             e.lastmod ? `    <lastmod>${e.lastmod}</lastmod>` : null,
             e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
             e.priority ? `    <priority>${e.priority}</priority>` : null,

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.verticepericia.net.br/sitemap.xml
+Sitemap: https://verticepericia.net.br/sitemap.xml
