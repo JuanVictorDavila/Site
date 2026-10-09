@@ -1,9 +1,12 @@
+import { newBlogPosts } from "./blog-new-posts";
+
 export type ServicePath =
   | "/pericia-contabil"
   | "/auditoria"
   | "/pericia-grafotecnica"
   | "/pericia-documental"
-  | "/pericia-digital";
+  | "/pericia-digital"
+  | "/desenvolvimento";
 
 export interface BlogSection {
   title: string;
@@ -34,6 +37,7 @@ export interface BlogPost {
 }
 
 export const blogPosts: BlogPost[] = [
+  ...newBlogPosts,
   {
     slug: "documentos-necessarios-pericia-contabil",
     category: "Perícia Contábil",

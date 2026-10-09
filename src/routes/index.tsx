@@ -573,7 +573,7 @@ function Index() {
               Escritório especializado em perícia contábil de alta complexidade, auditoria forense,
               exame grafotécnico e documental e recuperação de evidências digitais.
             </p>
-            <div className="flex flex-wrap gap-12">
+            {/*<div className="flex flex-wrap gap-12">
               <div>
                 <span className="block font-mono text-2xl font-bold">R$ 100.2M</span>
                 <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -586,7 +586,7 @@ function Index() {
                   Aprovação em Laudos
                 </span>
               </div>
-            </div>
+            </div>*/}
           </div>
 
           <div className="relative animate-entry [animation-delay:200ms]">

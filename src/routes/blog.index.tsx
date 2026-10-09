@@ -159,12 +159,12 @@ function BlogPage() {
                 </Link>
               ))}
             </div>
-            <a
-              href="/rss.xml"
+            <Link
+              to="/assinar-rss"
               className="mt-8 inline-flex min-h-11 items-center border border-border px-5 py-3 font-mono text-[10px] uppercase tracking-widest text-muted-foreground hover:border-accent hover:text-accent"
             >
               Assinar atualizações por RSS
-            </a>
+            </Link>
           </div>
         </section>
       </main>

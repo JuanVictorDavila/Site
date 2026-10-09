@@ -222,7 +222,13 @@ function BlogPostPage() {
               </Link>
               <Link
                 to="/contato"
-                hash={post.relatedService.path === "/auditoria" ? "auditoria" : "pericia"}
+                hash={
+                  post.relatedService.path === "/auditoria"
+                    ? "auditoria"
+                    : post.relatedService.path === "/desenvolvimento"
+                      ? "desenvolvimento"
+                      : "pericia"
+                }
                 className="mt-5 inline-flex w-full justify-center bg-foreground px-5 py-3 font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-background hover:bg-accent"
               >
                 Solicitar avaliação

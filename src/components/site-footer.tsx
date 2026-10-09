@@ -34,9 +34,9 @@ export function SiteFooter() {
           <Link to="/contato" className="hover:text-foreground transition-colors">
             Contato
           </Link>
-          <a href="/rss.xml" className="hover:text-foreground transition-colors">
+          <Link to="/assinar-rss" className="hover:text-foreground transition-colors">
             RSS
-          </a>
+          </Link>
           <Link to="/termos-de-uso" className="hover:text-foreground transition-colors">
             Termos
           </Link>

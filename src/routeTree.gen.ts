@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AssinarRssRouteImport } from './routes/assinar-rss'
 import { Route as AuditoriaRouteImport } from './routes/auditoria'
 import { Route as BlogRouteImport } from './routes/blog'
 import { Route as ContatoRouteImport } from './routes/contato'
@@ -29,6 +30,11 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssinarRssRoute = AssinarRssRouteImport.update({
+  id: '/assinar-rss',
+  path: '/assinar-rss',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuditoriaRoute = AuditoriaRouteImport.update({
@@ -109,6 +115,7 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/assinar-rss': typeof AssinarRssRoute
   '/auditoria': typeof AuditoriaRoute
   '/blog': typeof BlogRouteWithChildren
   '/contato': typeof ContatoRoute
@@ -127,6 +134,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/assinar-rss': typeof AssinarRssRoute
   '/auditoria': typeof AuditoriaRoute
   '/contato': typeof ContatoRoute
   '/desenvolvimento': typeof DesenvolvimentoRoute
@@ -145,6 +153,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/assinar-rss': typeof AssinarRssRoute
   '/auditoria': typeof AuditoriaRoute
   '/blog': typeof BlogRouteWithChildren
   '/contato': typeof ContatoRoute
@@ -165,6 +174,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/assinar-rss'
     | '/auditoria'
     | '/blog'
     | '/contato'
@@ -183,6 +193,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/assinar-rss'
     | '/auditoria'
     | '/contato'
     | '/desenvolvimento'
@@ -200,6 +211,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/assinar-rss'
     | '/auditoria'
     | '/blog'
     | '/contato'
@@ -219,6 +231,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AssinarRssRoute: typeof AssinarRssRoute
   AuditoriaRoute: typeof AuditoriaRoute
   BlogRoute: typeof BlogRouteWithChildren
   ContatoRoute: typeof ContatoRoute
@@ -241,6 +254,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/assinar-rss': {
+      id: '/assinar-rss'
+      path: '/assinar-rss'
+      fullPath: '/assinar-rss'
+      preLoaderRoute: typeof AssinarRssRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auditoria': {
@@ -365,6 +385,7 @@ const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AssinarRssRoute: AssinarRssRoute,
   AuditoriaRoute: AuditoriaRoute,
   BlogRoute: BlogRouteWithChildren,
   ContatoRoute: ContatoRoute,

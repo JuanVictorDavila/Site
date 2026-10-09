@@ -46,7 +46,7 @@ export function PericialNav() {
             onClick={() => setMobileOpen(false)}
             className="hidden min-h-11 items-center whitespace-nowrap font-mono text-[10px] uppercase tracking-widest text-muted-foreground transition-colors hover:text-accent sm:inline-flex"
           >
-            Software
+            Fábrica de Software
           </Link>
           <Link
             to="/contato"
