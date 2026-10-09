@@ -568,7 +568,7 @@ function Index() {
             </p>
             <div className="flex flex-wrap gap-12">
               <div>
-                <span className="block font-mono text-2xl font-bold">R$ 4.2B</span>
+                <span className="block font-mono text-2xl font-bold">R$ 100.2M</span>
                 <span className="text-[10px] uppercase tracking-widest text-muted-foreground">
                   Ativos Auditados
                 </span>
@@ -594,12 +594,6 @@ function Index() {
               />
               <div className="absolute inset-0 bg-accent/5 pointer-events-none" />
               <div className="absolute top-0 left-0 w-full h-[2px] bg-accent/30 animate-scanline opacity-50" />
-            </div>
-            <div className="absolute -bottom-4 -left-4 bg-background border border-border p-4 shadow-xl">
-              <span className="block font-mono text-[10px] text-accent mb-1">[Certificação]</span>
-              <span className="text-xs font-bold leading-tight">
-                Perito Digital Certificado / CNPC
-              </span>
             </div>
           </div>
         </div>
