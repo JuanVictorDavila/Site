@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 import { trackEvent } from "../lib/analytics";
+import { IS_PRODUCTION } from "../lib/environment";
 
 export type RequestKind = "pericia" | "auditoria" | "desenvolvimento";
 
@@ -31,13 +32,19 @@ function encodeForm(formData: FormData) {
 }
 
 export function RequestForm({ kind }: { kind: RequestKind }) {
-  const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "success" | "test" | "error">("idle");
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const form = event.currentTarget;
 
     if (!form.reportValidity()) return;
+
+    if (!IS_PRODUCTION) {
+      form.reset();
+      setStatus("test");
+      return;
+    }
 
     setStatus("sending");
     const formData = new FormData(form);
@@ -66,19 +73,23 @@ export function RequestForm({ kind }: { kind: RequestKind }) {
   return (
     <form
       name={formNames[kind]}
-      method="POST"
-      action="/contato?enviado=1"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
+      method={IS_PRODUCTION ? "POST" : "GET"}
+      action={IS_PRODUCTION ? "/contato?enviado=1" : undefined}
+      data-netlify={IS_PRODUCTION ? "true" : undefined}
+      data-netlify-honeypot={IS_PRODUCTION ? "bot-field" : undefined}
       onSubmit={handleSubmit}
       className="space-y-5"
     >
-      <input type="hidden" name="form-name" value={formNames[kind]} />
-      <p className="hidden" aria-hidden="true">
-        <label>
-          Não preencha este campo: <input name="bot-field" tabIndex={-1} autoComplete="off" />
-        </label>
-      </p>
+      {IS_PRODUCTION ? (
+        <>
+          <input type="hidden" name="form-name" value={formNames[kind]} />
+          <p className="hidden" aria-hidden="true">
+            <label>
+              Não preencha este campo: <input name="bot-field" tabIndex={-1} autoComplete="off" />
+            </label>
+          </p>
+        </>
+      ) : null}
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
@@ -318,13 +329,22 @@ export function RequestForm({ kind }: { kind: RequestKind }) {
         disabled={status === "sending"}
         className="inline-flex min-h-12 w-full items-center justify-center bg-foreground px-6 py-4 font-mono text-xs font-bold uppercase tracking-widest text-background transition-colors hover:bg-accent disabled:cursor-wait disabled:opacity-60"
       >
-        {status === "sending" ? "Enviando..." : submitLabels[kind]}
+        {status === "sending"
+          ? "Enviando..."
+          : IS_PRODUCTION
+            ? submitLabels[kind]
+            : "Validar formulário de teste"}
       </button>
 
       <div aria-live="polite" className="min-h-6 text-sm">
         {status === "success" ? (
           <p className="border-l-2 border-emerald-600 pl-3 text-emerald-700">
             Solicitação enviada. Nossa equipe entrará em contato pelos dados informados.
+          </p>
+        ) : null}
+        {status === "test" ? (
+          <p className="border-l-2 border-amber-600 pl-3 text-amber-800">
+            Formulário validado em ambiente de teste. Nenhum dado foi enviado.
           </p>
         ) : null}
         {status === "error" ? (

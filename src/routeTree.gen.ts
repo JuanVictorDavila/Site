@@ -20,6 +20,7 @@ import { Route as PericiaDigitalRouteImport } from './routes/pericia-digital'
 import { Route as PericiaDocumentalRouteImport } from './routes/pericia-documental'
 import { Route as PericiaGrafotecnicaRouteImport } from './routes/pericia-grafotecnica'
 import { Route as PoliticaDePrivacidadeRouteImport } from './routes/politica-de-privacidade'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as RssDotxmlRouteImport } from './routes/rss[.]xml'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SobreRouteImport } from './routes/sobre'
@@ -82,6 +83,11 @@ const PoliticaDePrivacidadeRoute = PoliticaDePrivacidadeRouteImport.update({
   path: '/politica-de-privacidade',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RssDotxmlRoute = RssDotxmlRouteImport.update({
   id: '/rss.xml',
   path: '/rss.xml',
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/pericia-documental': typeof PericiaDocumentalRoute
   '/pericia-grafotecnica': typeof PericiaGrafotecnicaRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/pericia-documental': typeof PericiaDocumentalRoute
   '/pericia-grafotecnica': typeof PericiaGrafotecnicaRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/pericia-documental': typeof PericiaDocumentalRoute
   '/pericia-grafotecnica': typeof PericiaGrafotecnicaRoute
   '/politica-de-privacidade': typeof PoliticaDePrivacidadeRoute
+  '/robots.txt': typeof RobotsDottxtRoute
   '/rss.xml': typeof RssDotxmlRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/sobre': typeof SobreRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/pericia-documental'
     | '/pericia-grafotecnica'
     | '/politica-de-privacidade'
+    | '/robots.txt'
     | '/rss.xml'
     | '/sitemap.xml'
     | '/sobre'
@@ -202,6 +212,7 @@ export interface FileRouteTypes {
     | '/pericia-documental'
     | '/pericia-grafotecnica'
     | '/politica-de-privacidade'
+    | '/robots.txt'
     | '/rss.xml'
     | '/sitemap.xml'
     | '/sobre'
@@ -221,6 +232,7 @@ export interface FileRouteTypes {
     | '/pericia-documental'
     | '/pericia-grafotecnica'
     | '/politica-de-privacidade'
+    | '/robots.txt'
     | '/rss.xml'
     | '/sitemap.xml'
     | '/sobre'
@@ -241,6 +253,7 @@ export interface RootRouteChildren {
   PericiaDocumentalRoute: typeof PericiaDocumentalRoute
   PericiaGrafotecnicaRoute: typeof PericiaGrafotecnicaRoute
   PoliticaDePrivacidadeRoute: typeof PoliticaDePrivacidadeRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
   RssDotxmlRoute: typeof RssDotxmlRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SobreRoute: typeof SobreRoute
@@ -326,6 +339,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PoliticaDePrivacidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/rss.xml': {
       id: '/rss.xml'
       path: '/rss.xml'
@@ -395,6 +415,7 @@ const rootRouteChildren: RootRouteChildren = {
   PericiaDocumentalRoute: PericiaDocumentalRoute,
   PericiaGrafotecnicaRoute: PericiaGrafotecnicaRoute,
   PoliticaDePrivacidadeRoute: PoliticaDePrivacidadeRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
   RssDotxmlRoute: RssDotxmlRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SobreRoute: SobreRoute,

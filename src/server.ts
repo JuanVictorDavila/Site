@@ -2,6 +2,7 @@ import "./lib/error-capture";
 
 import { consumeLastCapturedError } from "./lib/error-capture";
 import { renderErrorPage } from "./lib/error-page";
+import { IS_PRODUCTION } from "./lib/environment";
 
 type ServerEntry = {
   fetch: (request: Request, env: unknown, ctx: unknown) => Promise<Response> | Response;
@@ -22,6 +23,7 @@ const SECURITY_HEADERS: Record<string, string> = {
 function withSecurityHeaders(response: Response) {
   const headers = new Headers(response.headers);
   Object.entries(SECURITY_HEADERS).forEach(([name, value]) => headers.set(name, value));
+  if (!IS_PRODUCTION) headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
 
   return new Response(response.body, {
     status: response.status,

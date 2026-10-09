@@ -1,3 +1,5 @@
+import { IS_PRODUCTION } from "./environment";
+
 export const SITE_URL = "https://verticepericia.net.br";
 export const SITE_NAME = "Vértice Perícia";
 export const LEGAL_NAME = "Vértice Perícia, Consultoria, Auditoria e Tecnologia LTDA";
@@ -26,7 +28,10 @@ export function seoMeta({
   return [
     { title },
     { name: "description", content: description },
-    { name: "robots", content: "index, follow" },
+    {
+      name: "robots",
+      content: IS_PRODUCTION ? "index, follow" : "noindex, nofollow, noarchive",
+    },
     { property: "og:locale", content: "pt_BR" },
     { property: "og:site_name", content: SITE_NAME },
     { property: "og:title", content: title },

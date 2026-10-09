@@ -12,8 +12,10 @@ import type { ReactNode } from "react";
 
 import { Analytics } from "../components/analytics";
 import { CookieConsent } from "../components/cookie-consent";
+import { EnvironmentBanner } from "../components/environment-banner";
 import { PericialNav } from "../components/pericial-nav";
 import { SiteFooter } from "../components/site-footer";
+import { IS_PRODUCTION } from "../lib/environment";
 import appCss from "../styles.css?url";
 
 function NotFoundComponent() {
@@ -166,8 +168,9 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Analytics />
-      <CookieConsent />
+      {IS_PRODUCTION ? <Analytics /> : null}
+      {IS_PRODUCTION ? <CookieConsent /> : null}
+      <EnvironmentBanner />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
     </QueryClientProvider>

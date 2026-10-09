@@ -1,6 +1,21 @@
 [build]
   command = "npm run build"
 
+[context.production.environment]
+  VITE_SITE_ENV = "production"
+
+[context.branch-deploy.environment]
+  VITE_SITE_ENV = "staging"
+
+[context.deploy-preview.environment]
+  VITE_SITE_ENV = "preview"
+
+[context.dev.environment]
+  VITE_SITE_ENV = "local"
+
+[context.develop.environment]
+  VITE_SITE_ENV = "staging"
+
 [[redirects]]
   from = "https://verticepericias.netlify.app/*"
   to = "https://verticepericia.net.br/:splat"

@@ -7,8 +7,9 @@ import {
   trackEvent,
   type AnalyticsConsent,
 } from "../lib/analytics";
+import { IS_PRODUCTION } from "../lib/environment";
 
-const measurementId = import.meta.env.VITE_GA_MEASUREMENT_ID?.trim();
+const measurementId = IS_PRODUCTION ? import.meta.env.VITE_GA_MEASUREMENT_ID?.trim() : undefined;
 
 export function Analytics() {
   const location = useLocation();
