@@ -1,5 +1,33 @@
-commit eb4510fedd98ea2d7aef42fd18e02c7ee6baa737
-Author: Juan Victor  (J.V.) <juanvictor70@gmail.com>
-Date:   Fri Oct 9 11:00:01 2026 -0400
+[build]
+  command = "npm run build"
 
-    Expand contact, content and analytics foundations
+[[redirects]]
+  from = "https://verticepericias.netlify.app/*"
+  to = "https://verticepericia.net.br/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/netlify-forms.html"
+  to = "/contato"
+  status = 301
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net; upgrade-insecure-requests"
+    Cross-Origin-Opener-Policy = "same-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/og/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"

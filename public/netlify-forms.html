@@ -1,5 +1,67 @@
-commit eb4510fedd98ea2d7aef42fd18e02c7ee6baa737
-Author: Juan Victor  (J.V.) <juanvictor70@gmail.com>
-Date:   Fri Oct 9 11:00:01 2026 -0400
-
-    Expand contact, content and analytics foundations
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Definições de formulários</title>
+  </head>
+  <body>
+    <!-- A Netlify lê estas definições no build. Os formulários visíveis ficam em /contato. -->
+    <form
+      name="solicitacao-pericia"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      hidden
+    >
+      <input name="form-name" value="solicitacao-pericia" />
+      <input name="bot-field" />
+      <input name="nome" />
+      <input name="telefone" />
+      <input name="email" />
+      <input name="cidade" />
+      <input name="tipo-pericia" />
+      <input name="contexto" />
+      <textarea name="mensagem"></textarea>
+      <input name="aceite-privacidade" />
+    </form>
+    <form
+      name="solicitacao-auditoria"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      hidden
+    >
+      <input name="form-name" value="solicitacao-auditoria" />
+      <input name="bot-field" />
+      <input name="nome" />
+      <input name="telefone" />
+      <input name="email" />
+      <input name="cidade" />
+      <input name="organizacao" />
+      <input name="foco" />
+      <textarea name="mensagem"></textarea>
+      <input name="aceite-privacidade" />
+    </form>
+    <form
+      name="solicitacao-desenvolvimento"
+      method="POST"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+      hidden
+    >
+      <input name="form-name" value="solicitacao-desenvolvimento" />
+      <input name="bot-field" />
+      <input name="nome" />
+      <input name="telefone" />
+      <input name="email" />
+      <input name="cidade" />
+      <input name="empresa" />
+      <input name="solucao" />
+      <input name="prazo" />
+      <input name="orcamento" />
+      <textarea name="mensagem"></textarea>
+      <input name="aceite-privacidade" />
+    </form>
+  </body>
+</html>
