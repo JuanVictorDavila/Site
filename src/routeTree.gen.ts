@@ -11,12 +11,15 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuditoriaRouteImport } from './routes/auditoria'
+import { Route as BlogRouteImport } from './routes/blog'
 import { Route as DesenvolvimentoRouteImport } from './routes/desenvolvimento'
 import { Route as PericiaContabilRouteImport } from './routes/pericia-contabil'
 import { Route as PericiaDigitalRouteImport } from './routes/pericia-digital'
 import { Route as PericiaDocumentalRouteImport } from './routes/pericia-documental'
 import { Route as PericiaGrafotecnicaRouteImport } from './routes/pericia-grafotecnica'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -26,6 +29,11 @@ const IndexRoute = IndexRouteImport.update({
 const AuditoriaRoute = AuditoriaRouteImport.update({
   id: '/auditoria',
   path: '/auditoria',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogRoute = BlogRouteImport.update({
+  id: '/blog',
+  path: '/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DesenvolvimentoRoute = DesenvolvimentoRouteImport.update({
@@ -58,16 +66,29 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => BlogRoute,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => BlogRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auditoria': typeof AuditoriaRoute
+  '/blog': typeof BlogRouteWithChildren
   '/desenvolvimento': typeof DesenvolvimentoRoute
   '/pericia-contabil': typeof PericiaContabilRoute
   '/pericia-digital': typeof PericiaDigitalRoute
   '/pericia-documental': typeof PericiaDocumentalRoute
   '/pericia-grafotecnica': typeof PericiaGrafotecnicaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,29 +99,37 @@ export interface FileRoutesByTo {
   '/pericia-documental': typeof PericiaDocumentalRoute
   '/pericia-grafotecnica': typeof PericiaGrafotecnicaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auditoria': typeof AuditoriaRoute
+  '/blog': typeof BlogRouteWithChildren
   '/desenvolvimento': typeof DesenvolvimentoRoute
   '/pericia-contabil': typeof PericiaContabilRoute
   '/pericia-digital': typeof PericiaDigitalRoute
   '/pericia-documental': typeof PericiaDocumentalRoute
   '/pericia-grafotecnica': typeof PericiaGrafotecnicaRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/auditoria'
+    | '/blog'
     | '/desenvolvimento'
     | '/pericia-contabil'
     | '/pericia-digital'
     | '/pericia-documental'
     | '/pericia-grafotecnica'
     | '/sitemap.xml'
+    | '/blog/$slug'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,21 +140,27 @@ export interface FileRouteTypes {
     | '/pericia-documental'
     | '/pericia-grafotecnica'
     | '/sitemap.xml'
+    | '/blog/$slug'
+    | '/blog'
   id:
     | '__root__'
     | '/'
     | '/auditoria'
+    | '/blog'
     | '/desenvolvimento'
     | '/pericia-contabil'
     | '/pericia-digital'
     | '/pericia-documental'
     | '/pericia-grafotecnica'
     | '/sitemap.xml'
+    | '/blog/$slug'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuditoriaRoute: typeof AuditoriaRoute
+  BlogRoute: typeof BlogRouteWithChildren
   DesenvolvimentoRoute: typeof DesenvolvimentoRoute
   PericiaContabilRoute: typeof PericiaContabilRoute
   PericiaDigitalRoute: typeof PericiaDigitalRoute
@@ -148,6 +183,13 @@ declare module '@tanstack/react-router' {
       path: '/auditoria'
       fullPath: '/auditoria'
       preLoaderRoute: typeof AuditoriaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog': {
+      id: '/blog'
+      path: '/blog'
+      fullPath: '/blog'
+      preLoaderRoute: typeof BlogRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/desenvolvimento': {
@@ -192,12 +234,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof BlogRoute
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof BlogRoute
+    }
   }
 }
+
+interface BlogRouteChildren {
+  BlogSlugRoute: typeof BlogSlugRoute
+  BlogIndexRoute: typeof BlogIndexRoute
+}
+
+const BlogRouteChildren: BlogRouteChildren = {
+  BlogSlugRoute: BlogSlugRoute,
+  BlogIndexRoute: BlogIndexRoute,
+}
+
+const BlogRouteWithChildren = BlogRoute._addFileChildren(BlogRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuditoriaRoute: AuditoriaRoute,
+  BlogRoute: BlogRouteWithChildren,
   DesenvolvimentoRoute: DesenvolvimentoRoute,
   PericiaContabilRoute: PericiaContabilRoute,
   PericiaDigitalRoute: PericiaDigitalRoute,

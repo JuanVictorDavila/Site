@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
 
-const BASE_URL = "https://verticepericia.com.br";
+import { blogPosts } from "../content/blog";
+
+const BASE_URL = "https://www.verticepericia.net.br";
 
 interface SitemapEntry {
   path: string;
@@ -22,6 +24,13 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/pericia-grafotecnica", changefreq: "monthly", priority: "0.8" },
           { path: "/pericia-documental", changefreq: "monthly", priority: "0.8" },
           { path: "/pericia-digital", changefreq: "monthly", priority: "0.8" },
+          { path: "/blog", changefreq: "weekly", priority: "0.8" },
+          ...blogPosts.map((post) => ({
+            path: `/blog/${post.slug}`,
+            lastmod: post.updatedAt,
+            changefreq: "monthly" as const,
+            priority: "0.7",
+          })),
         ];
 
         const urls = entries.map((e) =>

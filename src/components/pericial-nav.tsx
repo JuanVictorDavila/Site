@@ -6,6 +6,7 @@ const serviceLinks = [
   ["/pericia-grafotecnica", "Grafotécnica"],
   ["/pericia-documental", "Documental"],
   ["/pericia-digital", "Digital"],
+  ["/blog", "Blog"],
 ] as const;
 
 export function PericialNav() {

@@ -1235,6 +1235,9 @@ function Index() {
             <Link to="/desenvolvimento" className="hover:text-foreground transition-colors">
               Desenvolvimento
             </Link>
+            <Link to="/blog" className="hover:text-foreground transition-colors">
+              Blog
+            </Link>
             <a href="#" className="hover:text-foreground transition-colors">
               Termos
             </a>

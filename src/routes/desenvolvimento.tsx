@@ -99,6 +99,9 @@ function DevelopmentPage() {
               <Link to="/" className="hover:text-accent transition-colors">
                 Perícia e Auditoria
               </Link>
+              <Link to="/blog" className="hover:text-accent transition-colors">
+                Blog
+              </Link>
             </div>
           </div>
           <a
@@ -283,12 +286,14 @@ function DevelopmentPage() {
               Vértice Perícia, Consultoria, Auditoria e Tecnologia LTDA · CNPJ 67.807.914/0001-30
             </span>
           </div>
-          <Link
-            to="/"
-            className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground hover:text-accent transition-colors"
-          >
-            Ir para Perícia e Auditoria
-          </Link>
+          <div className="flex gap-6 font-mono text-[10px] uppercase tracking-widest text-muted-foreground">
+            <Link to="/blog" className="hover:text-accent transition-colors">
+              Blog
+            </Link>
+            <Link to="/" className="hover:text-accent transition-colors">
+              Ir para Perícia e Auditoria
+            </Link>
+          </div>
         </div>
       </footer>
     </div>

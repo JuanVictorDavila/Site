@@ -256,9 +256,14 @@ export function PericialServicePage({ service }: { service: PericialService }) {
       <footer className="py-10 px-6 border-t border-border">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between gap-5 text-[10px] font-mono uppercase tracking-widest text-muted-foreground">
           <span>Vértice Perícia</span>
-          <Link to="/" className="hover:text-accent transition-colors">
-            Ver todas as especialidades
-          </Link>
+          <div className="flex gap-6">
+            <Link to="/blog" className="hover:text-accent transition-colors">
+              Blog
+            </Link>
+            <Link to="/" className="hover:text-accent transition-colors">
+              Ver todas as especialidades
+            </Link>
+          </div>
         </div>
       </footer>
     </div>
