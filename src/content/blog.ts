@@ -27,6 +27,10 @@ export interface BlogPost {
     path: ServicePath;
   };
   additionalServicePaths?: ServicePath[];
+  references?: {
+    label: string;
+    url: string;
+  }[];
 }
 
 export const blogPosts: BlogPost[] = [
@@ -239,6 +243,126 @@ export const blogPosts: BlogPost[] = [
       label: "Conheça a atuação em Perícia Digital",
       path: "/pericia-digital",
     },
+  },
+  {
+    slug: "cadeia-de-custodia-evidencias-digitais",
+    category: "Perícia Digital",
+    title: "Cadeia de custódia de evidências digitais: o que é e por que importa?",
+    seoTitle: "Cadeia de Custódia de Evidências Digitais | Vértice",
+    description:
+      "Entenda como a cadeia de custódia documenta coleta, acesso, cópia, armazenamento e análise de evidências digitais para preservar sua integridade.",
+    publishedAt: "2026-10-09",
+    updatedAt: "2026-10-09",
+    readingTime: "9 min de leitura",
+    introduction:
+      "A cadeia de custódia funciona como um histórico verificável da evidência: registra de onde ela veio, quem teve contato com ela, quais procedimentos foram realizados e onde permaneceu armazenada. Em materiais digitais, esse controle é especialmente importante porque uma ação aparentemente simples — abrir, copiar, sincronizar ou encaminhar um arquivo — pode modificar dados relevantes.",
+    sections: [
+      {
+        title: "Cadeia de custódia em linguagem simples",
+        paragraphs: [
+          "Imagine que um arquivo percorra um caminho desde o celular em que foi encontrado até o laudo pericial. A cadeia de custódia é o registro desse percurso. Ela permite reconstruir quando o item foi reconhecido, como foi preservado, quem o coletou, quem o recebeu, onde foi guardado e quais exames foram executados.",
+          "O objetivo não é apenas impedir alterações. Também é tornar o processo rastreável e auditável. Outra pessoa tecnicamente habilitada deve conseguir compreender qual material foi examinado e quais controles sustentam a conclusão apresentada.",
+        ],
+      },
+      {
+        title: "O que a legislação brasileira estabelece",
+        paragraphs: [
+          "No processo penal, os artigos 158-A a 158-F do Código de Processo Penal disciplinam a cadeia de custódia. A lei a define como o conjunto de procedimentos utilizados para manter e documentar a história cronológica do vestígio, desde o reconhecimento até o descarte. O texto também enumera etapas como reconhecimento, isolamento, fixação, coleta, acondicionamento, transporte, recebimento, processamento, armazenamento e descarte.",
+          "Evidências digitais também aparecem em processos cíveis, trabalhistas, empresariais e apurações internas. Nesses contextos, o enquadramento jurídico pode ser diferente, mas os princípios técnicos de origem documentada, integridade, controle de acesso e rastreabilidade continuam relevantes. A consequência jurídica de uma falha deve ser avaliada no caso concreto pela autoridade competente; ela não é determinada automaticamente pelo perito.",
+        ],
+      },
+      {
+        title: "Por que a evidência digital exige cuidado específico",
+        paragraphs: [
+          "Um documento físico normalmente apresenta mudanças perceptíveis quando é rasgado, riscado ou substituído. Já um arquivo pode ser alterado sem deixar sinais visíveis para o usuário comum. Metadados de acesso, datas, registros do sistema e informações sincronizadas também podem mudar durante o uso normal de um dispositivo.",
+          "Além disso, o mesmo conteúdo pode existir em vários lugares: aparelho, conta em nuvem, servidor, backup e dispositivo de outra pessoa. Por isso, preservar uma captura de tela não equivale necessariamente a preservar a fonte completa. A pergunta pericial define quais origens, formatos e registros complementares precisam ser considerados.",
+        ],
+      },
+      {
+        title: "Como o procedimento funciona na prática",
+        paragraphs: [
+          "O fluxo varia conforme o objeto e a autorização disponível, mas uma cadeia tecnicamente documentada costuma começar pela identificação do item e de seu contexto. Em seguida, são adotadas medidas para reduzir alterações, registrar o estado encontrado e realizar a aquisição adequada dos dados.",
+        ],
+        bullets: [
+          "Identificação: descrição do dispositivo, conta, mídia, arquivo ou sistema de origem.",
+          "Preservação: controle de acesso e medidas proporcionais ao risco de alteração ou perda.",
+          "Aquisição: obtenção de cópia técnica ou exportação documentada, preservando a fonte quando possível.",
+          "Verificação: cálculo e registro de valores de hash para comparar a integridade das cópias.",
+          "Movimentação: registro de data, horário, responsável, finalidade e destino em cada transferência.",
+          "Análise: exame preferencialmente realizado sobre cópia verificada, com método e ferramentas documentados.",
+          "Armazenamento: proteção contra acesso indevido, alteração, perda e mistura com materiais de outros casos.",
+        ],
+      },
+      {
+        title: "O que é hash — e o que ele não prova",
+        paragraphs: [
+          "O hash pode ser entendido como um resumo matemático dos dados. O arquivo é processado por um algoritmo, como o SHA-256, que produz uma sequência de caracteres. Se o conteúdo mudar, mesmo que pouco, o valor calculado tende a ser diferente. Comparar hashes ajuda a demonstrar que a cópia analisada permanece igual àquela registrada na coleta.",
+          "O hash é um controle de integridade, não um certificado completo de autenticidade. Um valor coincidente não revela sozinho quem criou o arquivo, se uma mensagem é verdadeira, se a conta pertencia a determinada pessoa ou se o conteúdo foi produzido na data exibida. Essas questões exigem contexto, registros de origem e análise de outras evidências.",
+        ],
+      },
+      {
+        title: "Exemplo: mensagens apresentadas em uma investigação",
+        paragraphs: [
+          "Considere uma conversa relevante apresentada apenas por capturas de tela. As imagens ajudam a mostrar o conteúdo visível, mas podem não trazer identificadores da conta, metadados, sequência completa, anexos originais ou informações sobre a forma de obtenção.",
+          "Uma abordagem mais robusta registra o dispositivo ou a conta de origem, delimita o período, documenta a exportação ou aquisição, preserva os arquivos gerados, calcula hashes e mantém um histórico de quem recebeu cada cópia. Também busca elementos independentes que confirmem ou contradigam a narrativa, como registros do sistema, e-mails, backups ou dados fornecidos pelo serviço quando legalmente disponíveis.",
+        ],
+      },
+      {
+        title: "Erros comuns que reduzem a rastreabilidade",
+        paragraphs: [
+          "Nem toda intervenção invalida automaticamente o material, mas alterações não explicadas aumentam a incerteza e podem limitar as conclusões. Quando um incidente for percebido, o melhor caminho é documentá-lo em vez de tentar ocultá-lo ou produzir uma nova versão como se fosse a original.",
+        ],
+        bullets: [
+          "Editar, converter, renomear ou reenviar arquivos antes de preservar a fonte.",
+          "Continuar utilizando intensamente o celular ou computador relacionado ao fato.",
+          "Instalar aplicativos de extração no próprio dispositivo examinado sem planejamento técnico.",
+          "Guardar somente capturas de tela e descartar arquivos nativos ou exportações completas.",
+          "Compartilhar o material por canais que recomprimem ou modificam os arquivos.",
+          "Deixar de registrar datas, fuso horário, responsáveis, ferramentas e transferências.",
+          "Misturar o material original com arquivos produzidos durante a análise.",
+        ],
+      },
+      {
+        title: "O que uma pessoa deve fazer ao encontrar uma possível evidência",
+        paragraphs: [
+          "Evite manipulações desnecessárias e registre o contexto: quem encontrou, onde estava, quando foi identificado e o que aconteceu depois. Mantenha o dispositivo, a conta ou o arquivo de origem disponível e restrinja o acesso ao mínimo necessário.",
+          "Não existe uma regra universal para desligar um equipamento, retirar da rede ou manter ligado. A decisão depende de fatores como criptografia, risco de acesso remoto, volatilidade dos dados e estado do dispositivo. Em situações relevantes, procure orientação técnica antes de executar procedimentos por conta própria.",
+        ],
+      },
+      {
+        title: "O que deve aparecer na documentação técnica",
+        paragraphs: [
+          "Um relatório tecnicamente transparente identifica o objeto examinado, as fontes, as datas, o fuso horário, os responsáveis, os procedimentos de aquisição, os valores de hash, as ferramentas utilizadas e as condições de armazenamento. Também deve distinguir o material recebido daquele produzido durante o exame.",
+          "Limitações precisam ser declaradas. Ausência da fonte, coleta tardia, credenciais indisponíveis, dispositivo danificado ou registro incompleto podem reduzir o alcance da análise. Explicitar essas restrições não enfraquece o trabalho; demonstra prudência e permite que o leitor compreenda exatamente o que a evidência sustenta.",
+        ],
+      },
+      {
+        title: "Cadeia de custódia, autenticidade e autoria não são sinônimos",
+        paragraphs: [
+          "Uma cadeia bem documentada sustenta a rastreabilidade e a integridade do material sob custódia. A autenticidade exige avaliar se o item corresponde ao que se afirma que ele é. A autoria procura relacionar uma ação ou conteúdo a determinada pessoa. São perguntas diferentes e cada uma depende de evidências e métodos próprios.",
+          "Por isso, a conclusão responsável evita frases absolutas baseadas em um único indicador. O exame combina documentação de custódia, análise técnica, contexto e confronto com fontes independentes, sempre dentro dos limites do material efetivamente disponível.",
+        ],
+      },
+    ],
+    relatedService: {
+      label: "Conheça a atuação em Perícia Digital",
+      path: "/pericia-digital",
+    },
+    additionalServicePaths: ["/pericia-documental"],
+    references: [
+      {
+        label: "Código de Processo Penal — artigos 158-A a 158-F",
+        url: "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689compilado.htm",
+      },
+      {
+        label: "Ministério da Justiça e Segurança Pública — Cadeia de Custódia",
+        url: "https://www.gov.br/mj/pt-br/assuntos/sua-seguranca/seguranca-publica/cadeia-de-custodia-1",
+      },
+      {
+        label: "NIST IR 8387 — Digital Evidence Preservation",
+        url: "https://nvlpubs.nist.gov/nistpubs/ir/2022/NIST.IR.8387.pdf",
+      },
+    ],
   },
   {
     slug: "quando-solicitar-pericia-contabil",

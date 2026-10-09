@@ -179,6 +179,32 @@ function BlogPostPage() {
                   depende do objeto, dos materiais disponíveis e das limitações identificadas.
                 </p>
               </div>
+
+              {post.references?.length ? (
+                <section className="mt-10" aria-labelledby="referencias-do-artigo">
+                  <h2
+                    id="referencias-do-artigo"
+                    className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent mb-5"
+                  >
+                    Fontes e referências
+                  </h2>
+                  <ul className="space-y-3 text-sm text-muted-foreground" role="list">
+                    {post.references.map((reference) => (
+                      <li key={reference.url}>
+                        <a
+                          href={reference.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="underline decoration-border underline-offset-4 hover:text-accent"
+                        >
+                          {reference.label}
+                          <span className="sr-only"> (abre em nova aba)</span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ) : null}
             </article>
 
             <aside className="lg:sticky lg:top-28 border border-border p-6 md:p-7">
