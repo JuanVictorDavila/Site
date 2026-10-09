@@ -1,20 +1,5 @@
-export type AnalyticsEvent =
-  "contact_form_submit" | "software_request" | "whatsapp_click" | "email_click" | "phone_click";
+commit eb4510fedd98ea2d7aef42fd18e02c7ee6baa737
+Author: Juan Victor  (J.V.) <juanvictor70@gmail.com>
+Date:   Fri Oct 9 11:00:01 2026 -0400
 
-declare global {
-  interface Window {
-    dataLayer?: unknown[];
-    gtag?: (...args: unknown[]) => void;
-  }
-}
-
-export function trackEvent(event: AnalyticsEvent, parameters: Record<string, unknown> = {}) {
-  if (typeof window === "undefined") return;
-
-  if (window.gtag) {
-    window.gtag("event", event, parameters);
-    return;
-  }
-
-  window.dataLayer?.push({ event, ...parameters });
-}
+    Expand contact, content and analytics foundations
