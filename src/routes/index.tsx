@@ -1177,10 +1177,10 @@ function Index() {
                       E-mail
                     </span>
                     <a
-                      href="mailto:vertice.pericia@gmail.com"
+                      href="mailto:vertice.pericias@gmail.com"
                       className="font-semibold hover:text-accent transition-colors"
                     >
-                      vertice.pericia@gmail.com
+                      vertice.pericias@gmail.com
                     </a>
                   </div>
                 </div>
