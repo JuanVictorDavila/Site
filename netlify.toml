@@ -11,6 +11,7 @@
   from = "/netlify-forms.html"
   to = "/contato"
   status = 301
+  force = true
 
 [[headers]]
   for = "/*"
